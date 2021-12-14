@@ -1,0 +1,110 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Amaze UI Admin form Examples</title>
+  <meta name="description" content="这是一个form页面">
+  <meta name="keywords" content="form">
+<% include("/common/inc/_css.html"){} %>
+</head>
+<body>
+<!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+  以获得更好的体验！</p>
+<![endif]-->
+
+<% include("/common/inc/_header.html"){} %>
+
+<div class="am-cf admin-main">
+  <!-- sidebar start -->
+  <% include("/common/inc/_start.html"){} %>
+  <!-- sidebar end -->
+
+<!-- content start -->
+<div class="admin-content">
+  <div class="admin-content-body">
+    <div class="am-cf am-padding am-padding-bottom-0">
+      <div class="am-fl am-cf">
+        <strong class="am-text-primary am-text-lg">菜单管理</strong> /
+        <small>修改</small>
+      </div>
+    </div>
+
+    <hr>
+           <form class="am-form" method="post">
+            <div class="am-g am-margin-top-sm">
+              <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                	菜单编码:
+              </div>
+              <div class="am-u-sm-8 am-u-md-4 am-u-end">
+                <input type="text" class="am-input-sm" name="func_code" value="${func.func_code}" required="required">
+              </div>
+            </div>
+            <div class="am-g am-margin-top-sm">
+              <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                	菜单名称:
+              </div>
+              <div class="am-u-sm-8 am-u-md-4 am-u-end">
+                <input type="text" class="am-input-sm" name="func_name" value="${func.func_name}" required="required">
+              </div>
+            </div>
+            <div class="am-g am-margin-top-sm">
+              <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                	菜单类型:
+              </div>
+              <div class="am-u-sm-8 am-u-md-4 am-u-end">
+                <select name="func_type">
+              		<option value="0" ${func.func_type==0?"selected":""}>文件夹</option>
+              		<option value="1" ${func.func_type==1?"selected":""}>菜单</option>
+              	</select>
+              </div>
+            </div>
+             
+			<div class="am-g am-margin-top-sm">
+              <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                	访问地址:
+              </div>
+              <div class="am-u-sm-8 am-u-md-4 am-u-end">
+                <input type="text" class="am-input-sm" name="func_url" value="${func.func_url}">
+              </div>
+            </div>
+            <div class="am-g am-margin-top-sm">
+              <div class="am-u-sm-4 am-u-md-2 am-text-right">
+                	上级菜单:
+              </div>
+              <div class="am-u-sm-8 am-u-md-4 am-u-end">
+              	<select name="parent_id">
+              		<% for(var item in list!) {%>
+              		<option value="${item.func_name}"
+						${item.id == func.id ? "selected":""}>${item.func_name}</option>
+              		<%}%>
+              	</select>
+              </div>
+            </div>
+	         <div class="am-margin">
+		      <button type="submit" class="am-btn am-btn-primary am-btn-xs">提交修改</button>
+		      <a href="${ctxPath}/auth/function/list" type="button" class="am-btn am-btn-primary am-btn-xs">放弃修改</a>
+		    </div>
+		    </form>
+  </div>
+
+  <footer class="admin-content-footer">
+    <hr>
+    <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
+  </footer>
+</div>
+<!-- content end -->
+
+</div>
+
+<a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+
+<footer>
+  <hr>
+  <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
+</footer>
+
+<% include("/common/inc/_js.html"){} %>
+</body>
+</html>

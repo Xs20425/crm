@@ -1,0 +1,343 @@
+<!doctype html>
+<html class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Amaze UI Admin form Examples</title>
+<meta name="description" content="这是一个form页面">
+<meta name="keywords" content="form">
+<style type="text/css">
+.see {
+	width: 130px;
+	display: inline-block;
+}
+
+#seea {
+	margin-left: 180px;
+}
+
+#field {
+	width: 700PX;
+	margin-left: 200px;
+}
+
+#areac {
+	width: 300px;
+	display: inline-block;
+}
+</style>
+<% include("/common/inc/_css.html"){} %>
+
+</head>
+<body>
+<!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Long Code 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+  以获得更好的体验！</p>
+<![endif]-->
+
+<% include("/common/inc/_header.html"){} %>
+
+<div class="am-cf admin-main">
+	<!-- sidebar start -->
+	<% include("/common/inc/_start.html"){} %>
+	<!-- sidebar end -->
+
+	<!-- content start -->
+	<div class="admin-content">
+		<div class="admin-content-body">
+			<div class="am-cf am-padding am-padding-bottom-0">
+				<div class="am-fl am-cf">
+					<div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">商机管理</strong> / <small>编辑</small></div>
+				</div>
+			</div>
+
+			<hr>
+
+			<form class="am-form" method="post" id="doc-vld-msg">
+				<fieldset>
+					<div class="am-g am-margin-top-sm">
+						<div class="am-u-sm-4 am-u-md-2 am-text-right">负责人</div>
+						<div class="am-u-sm-8 am-u-md-4 am-u-end">
+							<input type="text" class="am-input-sm" name="charge_username" 
+								onfocus="showLayer()" id="username" value="${user.username}">
+							<input type="hidden" name="id" value="${business.id}">
+						</div>
+
+						<div class="am-u-sm-4 am-u-md-2 am-text-right">客户</div>
+						<div class="am-u-sm-8 am-u-md-4">
+							<select data-am-selected="{btnSize: 'sm'}" id="doc-select-1"
+								name="customer_id" required>
+								<% for(var item in customers!){ %>
+								<option value="${item.id}" ${item.id == business.customer_id ? "selected":""}>${item.customer_name}</option> 
+								<%}%>
+							</select>
+						</div>
+						<div class="am-hide-sm-only am-u-md-6"></div>
+					</div>
+
+					<div class="am-g am-margin-top">
+						<div class="am-u-sm-4 am-u-md-2 am-text-right">商机金额</div>
+						<div class="am-u-sm-8 am-u-md-4">
+							<input type="text" name="business_money" id="doc-vld-name"
+								minlength="2" maxlength="15" class="am-input-sm" value="${business.business_money}"/>
+						</div>
+						<div class="am-hide-sm-only am-u-md-6"></div>
+
+						<div class="am-u-sm-4 am-u-md-2 am-text-right">商机名</div>
+						<div class="am-u-sm-8 am-u-md-4 am-u-end">
+							<input type="text" name="business_name" id="doc-vld-name"
+								class="am-input-sm" required value="${business.business_name}" />
+						</div>
+					</div>
+
+
+					<div class="am-g am-margin-top">
+						<div class="am-u-sm-4 am-u-md-2 am-text-right">联系人</div>
+						<div class="am-u-sm-8 am-u-md-4">
+							<input type="text" name="contact_name" class="am-input-sm" placeholder="联系人" value="${business.contact_name}" />
+						</div>
+						<div class="am-hide-sm-only am-u-md-6"></div>
+					</div>
+					
+					<div class="am-g am-margin-top-sm">
+						<div class="am-u-sm-4 am-u-md-2 am-text-right">合同签订地址</div>
+						<div id="seea">
+						<div class="see">
+							<select id="provinceList" name="province" onchange="getCity(this.value)">
+								<% for(var item in provinceList!){ %>
+								<option value="${item}" ${item == state? "selected":""}>${item}</option> <%}%>
+							</select>
+						</div>
+						省份
+						<div class="see">
+							<select id="cityList" name="city" onchange="getArea(this.value)">
+							</select>
+						</div>
+						城市
+						<div class="see">
+							<select id="areaList" name="area">
+							</select>
+						</div>
+						地区
+						<div id="areac">
+							<input type="text" name="areac" value="${street}" placeholder="街道" />
+						</div>
+					</div>
+					</div>
+					<div class="am-g am-margin-top-sm">
+						<div class="am-u-sm-4 am-u-md-2 am-text-right">商机类型</div>
+						 <div class="am-u-sm-8 am-u-md-4 am-u-end">
+							<select data-am-selected="{btnSize: 'sm'}" id="doc-select-1"
+								name="business_type_id" required>
+								<%
+             						for(var item in types!){%>
+								<option value="${item.id}" ${item.id == business.business_type_id ? "selected":""}>${item.type_name}</option>
+								<%}%>
+							</select>
+						</div> 
+
+						<div class="am-u-sm-4 am-u-md-2 am-text-right">状态</div>
+						<div class="am-u-sm-8 am-u-md-4 am-u-end">
+							<select data-am-selected="{btnSize: 'sm'}" id="doc-select-1"
+								name="business_status_id" required>
+								<%
+             						for(var item in status!){%>
+								<option value="${item.id}" ${item.id == business.business_status_id ? "selected":""}>${item.status_name}</option>
+								<%}%>
+							</select>
+						</div>
+					</div>
+					
+					<div class="am-g am-margin-top-sm">
+						<div class="am-u-sm-4 am-u-md-2 am-text-right">商机来源</div>
+						<div class="am-u-sm-8 am-u-md-4 am-u-end">
+							<select data-am-selected="{btnSize: 'sm'}" id="doc-select-1"
+								name="business_source_id" required>
+								<%
+             						for(var item in sources!){%>
+								<option value="${item.id}"  ${item.id == business.business_source_id ? "selected":""}>${item.source_name}</option>
+								<%}%>
+							</select>
+						</div>
+
+						<div class="am-u-sm-4 am-u-md-2 am-text-right">赢单率</div>
+						<div class="am-u-sm-8 am-u-md-4 am-u-end">
+							<input type="text" name="win_rate" placeholder="赢单率" value="${business.win_rate}" />
+						</div>
+					</div>
+					
+					<div class="am-g am-margin-top-sm">
+						<div class="am-u-sm-4 am-u-md-2 am-text-right">预计成交价</div>
+						<div class="am-u-sm-8 am-u-md-4 am-u-end">
+							<input type="text" name="expected_transaction_price" placeholder="预计成交价" value="${business.expected_transaction_price}" required/>
+						</div>
+
+						<div class="am-u-sm-4 am-u-md-2 am-text-right">下次联系时间</div>
+						<div class="am-u-sm-8 am-u-md-4 am-u-end">
+							<input type="text"  class="demo-input" placeholder="请选择日期" id="test1" name="next_contact_time"
+								class="am-input-sm" value="${business.next_contact_time,'yyyy-MM-dd'}" required />
+								
+						</div>
+					</div>
+					
+					<div class="am-g am-margin-top-sm">
+						<div class="am-u-sm-4 am-u-md-2 am-text-right">下次联系内容</div>
+						<div class="am-u-sm-8 am-u-md-4 am-u-end">
+							<input type="text" name="next_contact_info" value="${business.next_contact_info}" placeholder="请输入下次联系内容" />
+						</div>
+					</div>	
+					
+					<div>
+						<div class="admin-content">
+							<div class="admin-content-body">
+								<div class="am-cf am-padding am-padding-bottom-0">
+									<div class="am-fl am-cf">
+										<strong class="am-text-primary am-text-lg">附加信息</strong>
+									</div>
+								</div>
+								<hr>
+								<fieldset id="field">
+									<h2>备注:</h2>
+										<textarea rows="5" id="intro" name="remark">${remark}</textarea>
+								</fieldset>
+							</div>
+						</div>
+					</div>
+					<div class="am-margin">
+						<button id="btnTypeSave" type="submit"
+							class="am-btn am-btn-primary am-btn-xs btn-loading-example"
+							data-am-loading="{spinner: 'circle-o-notch', loadingText: '提交中...', resetText: '提交保存'}">
+							提交编辑</button>
+						<button type="button" class="am-btn am-btn-primary am-btn-xs">重置</button>
+						<a href="${ctxPath}/business/list"><button type="button" class="am-btn am-btn-primary am-btn-xs">返回列表</button></a>
+					</div>
+				</fieldset>
+			</form>
+
+
+		</div>
+		<footer class="admin-content-footer">
+			<hr>
+			<p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed
+				under MIT license.</p>
+		</footer>
+	</div>
+	<!-- content end -->
+
+</div>
+
+<a href="#"
+	class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
+	data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+
+<footer>
+	<hr>
+	<p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under
+		MIT license.</p>
+</footer>
+
+<% include("/common/inc/_js.html"){} %>
+<script src="${ctxPath}/assets/layer/layer.js"></script>
+<script src="${ctxPath}/assets/laydate/laydate.js"></script> <!-- 改成你的路径 -->
+<!-- ajax提交表单 -->
+<script src="${ctxPath}/assets/js/jquery.form.min.js"></script>
+
+<script type="text/javascript">
+	var cityName = '${city}';
+	var areaName = '${area}';
+
+	var selectProvince = $("#provinceList").val();
+
+	getCity(selectProvince);
+
+	function getCity(provinceName) {
+		$.ajax({
+			url : "${ctxPath}/business/update/${id}",
+			data : {
+				"name" : provinceName
+			},
+			type : 'POST',
+			success : function(data) {
+				//清理
+				$("#cityList").html("");
+				//循环
+				$.each(data, function(index, item) {
+					var checked = "";
+					if (item == cityName) {
+						checked = "selected";
+					}
+					var option = "<option value='"+item+"' "+checked+">"
+							+ item + "</option>"
+					$("#cityList").append(option);
+				})
+				// 获取选中
+				console.log($("#cityList").val());
+				var selectCity = $("#cityList").val();
+				getArea(selectCity);
+			}
+
+		})
+	}
+
+	function getArea(cityName) {
+		$.ajax({
+			url : "${ctxPath}/business/update/${id}",
+			data : {
+				"name" : cityName
+			},
+			type : 'POST',
+			success : function(data) {
+				//清理
+				$("#areaList").html("");
+				//循环
+				$.each(data, function(index, item) {
+					var checked = "";
+					if (item == areaName) {
+						checked = "selected";
+					}
+
+					var option = "<option value='"+item+"' "+checked+">"
+							+ item + "</option>"
+					$("#areaList").append(option);
+				})
+			}
+
+		})
+	}
+
+	//执行一个laydate实例
+	laydate.render({
+		elem : '#test1' //指定元素
+	});
+
+	$(function() {
+		$("#btnTypeSave").click(function() {
+			$(".am-form").ajaxSubmit({
+				success : function(data) {
+					if (data) {
+						alert("成功");
+						window.location.href = "${ctxPath}/clue/list";
+					} else {
+						alert("负责人不存在");
+						return false;
+					}
+
+				}
+			})
+			return false;
+		})
+
+	});
+	
+	function showLayer(){
+	    layer.open({
+	      type: 2, 
+	      title: '选择负责人',
+	      area : ['800px' , '520px'],
+	      shadeClose: true, //点击遮罩关闭层
+	      content: '${ctxPath}/charge/user/layer' //这里content是一个普通的String
+	    });
+	  }
+</script>
+</body>
+</html>

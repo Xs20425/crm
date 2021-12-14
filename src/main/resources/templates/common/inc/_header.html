@@ -1,0 +1,41 @@
+<header class="am-topbar am-topbar-inverse admin-header">
+  <div class="am-topbar-brand">
+    <strong>Long Code</strong> <small style="font-size: 16px;">京唐客户关系管理系统</small>
+    <span style="font-size: 14px;letter-spacing: 1em;padding-left: 2em;">
+    <a href="#" ><button style="color: blue;padding: 3px 15px;"> 线索</button></a>
+    <a href="#" ><button style="color: blue;padding: 3px 15px;"> 客户</button></a>
+    <a href="${ctxPath}/business/list" ><button style="color: blue;padding: 3px 15px;"> 商机</button></a>
+    <a href="#" ><button style="color: blue;padding: 3px 15px;"> 产品</button></a>
+    <a href="#" ><button style="color: blue;padding: 3px 15px;"> 任务</button></a>
+    <a href="${ctxPath}/contract/list" ><button style="color: blue;padding: 3px 15px;"> 合同</button></a>
+    <a href="${ctxPath}/uploadImg" ><button style="color: blue;padding: 3px 15px;"> 上传图片</button></a>
+    </span>
+  	<div class="am-dropdown" data-am-dropdown>
+  	<button class="am-btn am-btn-primary am-dropdown-toggle">更 多<span class="am-icon-caret-down"></span></button>
+     <ul class="am-dropdown-content">
+	    <li ><a href="${ctxPath}/clue/echarts"><button class="am-btn am-btn-warning" id="doc-dropdown-close">线索统计图</button></a></li>
+	    <li ><a href="${ctxPath}/customer/echarts"><button class="am-btn am-btn-secondary" id="doc-dropdown-toggle">客户统计图</button></a></li>
+	    <li ><a href="${ctxPath}/business/echarts"><button class="am-btn am-btn-success" id="doc-dropdown-open">商机统计图</button></a></li>
+	    <li ><a href="${ctxPath}/product/echarts"><button class="am-btn am-btn-warning" id="doc-dropdown-close">产品统计图</button></a></li>
+	    <li ><a href="${ctxPath}/contract/echarts"><button class="am-btn am-btn-secondary" id="doc-dropdown-toggle">合同统计图</button></a></li>
+	  </ul>
+	  </div>
+  </div>
+	
+  <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+    <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+      <li><a href="javascript:;"><span class="am-icon-envelope-o"></span> 收件箱 <span class="am-badge am-badge-warning">5</span></a></li>
+      <li class="am-dropdown" data-am-dropdown>
+        <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+          <span class="am-icon-users"></span> 管理员 <span class="am-icon-caret-down"></span>
+        </a>
+        <ul class="am-dropdown-content">
+          <li><a href="#"><span class="am-icon-user"></span> 资料</a></li>
+          <li><a href="#"><span class="am-icon-cog"></span> 设置</a></li>
+          <li><a href="${ctxPath}/login"><span class="am-icon-power-off"></span> 退出</a></li>
+        </ul>
+      </li>
+      <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">开启全屏</span></a></li>
+    </ul>
+  </div>
+</header>
