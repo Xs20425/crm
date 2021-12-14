@@ -1,0 +1,96 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Amaze UI Admin table Examples</title>
+  <meta name="description" content="这是一个 table 页面">
+  <meta name="keywords" content="table">
+<% include("/common/inc/_css.html"){} %>
+</head>
+<body>
+<!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+  以获得更好的体验！</p>
+<![endif]-->
+
+<div class="am-cf ">
+  <!-- content start -->
+  <div class="admin-content">
+    <div class="admin-content-body">
+      <hr>
+      <div class="am-g">
+      	<input type="hidden" id="CriteriaType" value="business_name">
+        <div class="am-u-sm-12 am-u-md-6">
+          <div class="am-input-group am-input-group-sm">
+            <input type="text" class="am-form-field" id="content" name="business_name" value="${business_name!}">
+          <span class="am-input-group-btn">
+            <a class="am-btn am-btn-default" type="button" onclick="searchData()">搜索</a>
+          </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="am-g">
+        <div class="am-u-sm-12">
+          <form class="am-form">
+            <table class="am-table am-table-striped am-table-hover table-main">
+              <thead>
+              <tr>
+                <th class="table-id">序号</th>
+                <th class="table-title">来源商机</th>
+                <th class="table-set">操作</th>
+              </tr>
+              </thead>
+              <tbody>
+              <% for(var item in list.list!) {%>
+              <tr>
+                <td>${itemLP.index}</td>
+                <td><a href="#">${item.business_name}</a></td>
+                <td>
+                  <div class="am-btn-toolbar">
+                    <div class="am-btn-group am-btn-group-xs">
+                      <a type="button" onclick="btnChoose('${item.business_name}','${item.id}')" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 选择</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>          
+              <%}%>
+              </tbody>
+            </table>
+            <div class="am-cf">
+ 			共 ${list.totalCount} 条记录     共 ${list.totalPage} 页
+             <% 
+             var curUrl = ctxPath + "/contract/business/layer";
+             include("/common/inc/_page.html",{pageUrl:curUrl}){}              
+             %>
+            </div>
+            <hr />
+          </form>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+  <!-- content end -->
+</div>
+
+<% include("/common/inc/_js.html"){} %>
+
+<script type="text/javascript">
+
+//注意：parent 是 JS 自带的全局对象，可用于操作父页面
+var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+
+function searchData(){
+	window.location.href="${ctxPath}/contract/business/layer?CriteriaType="+$("#CriteriaType").val()+"&content="+$("#content").val();
+}
+
+function btnChoose(business_name,businessId){
+  parent.$('#business_name').val(business_name);
+  parent.layer.close(index);
+}
+</script>
+</body>
+</html>

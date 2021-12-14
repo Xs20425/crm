@@ -1,0 +1,160 @@
+<!doctype html>
+<html class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Amaze UI Admin form Examples</title>
+<meta name="description" content="这是一个form页面">
+<meta name="keywords" content="form">
+<style type="text/css">
+.see {
+	width: 130px;
+	display: inline-block;
+}
+
+#seea {
+	margin-left: 180px;
+}
+
+#field {
+	width: 700PX;
+	margin-left: 200px;
+}
+
+#areac {
+	width: 300px;
+	display: inline-block;
+}
+</style>
+<% include("/common/inc/_css.html"){} %>
+
+</head>
+<body>
+	<!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+  以获得更好的体验！</p>
+<![endif]-->
+
+	<% include("/common/inc/_header.html"){} %>
+
+	<div class="am-cf admin-main">
+		<!-- sidebar start -->
+		<% include("/common/inc/_start.html"){} %>
+		<!-- sidebar end -->
+
+		<!-- content start -->
+		<div class="admin-content">
+			<div class="admin-content-body">
+				<div class="am-cf am-padding am-padding-bottom-0">
+					<div class="am-fl am-cf">
+						<div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">合同统计管理</strong> / <small>统计图</small></div>
+					</div>
+				</div>
+
+				<hr>
+				<!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+				<div id="main" style="width: 80%; height: 400px;"></div>
+				<%  
+					var xData = "[";
+					var yData = "[";	
+					
+					for(var item in countData!) {
+						xData = xData  +"'"+ item._dateOfContract +"',";
+						yData = yData + item.numCount +",";
+					}
+					
+					var xIndex = strutil.lastIndex(xData,",");
+					var yIndex = strutil.lastIndex(yData,",");
+					xData = strutil.subStringTo(xData,0,xIndex);
+					yData = strutil.subStringTo(yData,0,yIndex);
+					xData = xData +"]";
+					yData = yData +"]";
+				%>
+				
+				<!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+				<div id="main1" style="width: 80%; height: 400px;"></div>
+				<%  
+					var xDataMonth = "[";
+					var yDataMonth = "[";	
+					
+					for(var item in countByMonth!) {
+						xDataMonth = xDataMonth  +"'"+ item._dateOfContract +"',";
+						yDataMonth = yDataMonth + item.numCount +",";
+					}
+					
+					var xIndexMonth = strutil.lastIndex(xDataMonth,",");
+					var yIndexMonth = strutil.lastIndex(yDataMonth,",");
+					xDataMonth = strutil.subStringTo(xDataMonth,0,xIndexMonth);
+					yDataMonth = strutil.subStringTo(yDataMonth,0,yIndexMonth);
+					xDataMonth = xDataMonth +"]";
+					yDataMonth = yDataMonth +"]";
+				%>
+			</div>
+		</div>
+		<!-- content end -->
+
+	</div>
+
+	<a href="#"
+		class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
+		data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+
+	<footer>
+		<hr>
+		<p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under
+			MIT license.</p>
+	</footer>
+
+	<% include("/common/inc/_js.html"){} %>
+    <!-- 引入 ECharts 文件 -->
+    <script src="${ctxPath}/assets/echarts/echarts.min.js"></script> 
+	<script type="text/javascript">
+   	// 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+
+    // 指定图表的配置项和数据
+    var option = {
+        title: {
+            text: '本周'
+        //  subtext:'本周'
+        },
+        tooltip: {},
+       /*  legend: {
+            data:['本周']
+        }, */
+        xAxis: {
+            data: ${xData}
+        },
+        yAxis: {},
+        series: [{
+            name: '合同数',
+            type: 'bar',
+            data:${yData}
+        }]
+    };
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+    
+ 	// 基于准备好的dom，初始化echarts实例
+    var myChart1 = echarts.init(document.getElementById('main1'));
+    // 指定图表的配置项和数据
+    var option = {
+        title: {
+            text: '本月'
+        },
+        tooltip: {},
+        xAxis: {
+            data: ${xDataMonth}
+        },
+        yAxis: {},
+        series: [{
+            name: '合同数',
+            type: 'bar',
+            data:${yDataMonth}
+        }]
+    };
+ 	// 使用刚指定的配置项和数据显示图表。
+    myChart1.setOption(option);
+   </script>
+</body>
+</html>

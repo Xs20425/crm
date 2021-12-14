@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>注册</title>
+</head>
+<body>
+	<input type="text" placeholder="请输入接收验证邮箱" name="email" />
+	<button class="emailVerify" type="button" clickable="1">发送邮箱验证</button><span style="color: green; font-weight: bold; margin-left: 3em;">${msg!}</span>
+	<br />
+	<br />
+	<br />
+
+<script src="${ctxPath}/assets/js/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		// ajax提交数据
+		$(".emailVerify").click(function(){
+			//获取email的值
+			var email = $("input[name='email']").val();
+			$.ajax({
+				url:'${ctxPath}/register'
+				,type:'POST'
+				,data:{"email":email}
+				,success:function(data){
+					alert("邮箱已发送!");
+				}					
+			})
+		})
+			
+		// http://www.jb51.net/article/35535.htm	参考资料
+		// 按钮定时器
+		$(".emailVerify").click(function() {
+			var clickable = $(this).attr("clickable");
+			if (clickable=="0") {
+				return;
+			}
+			//启动倒计时
+			msgTimeOut();
+			
+			$(this).attr("clickable","0");
+			$(this).attr("disabled","disabled");	//设置按钮禁用状态
+		})
+})
+
+	var msgTime = 10;
+	function msgTimeOut(){
+		if(msgTime == 1){
+			$(".emailVerify").attr("clickable","1");
+			$(".emailVerify").removeAttr("disabled");
+			$(".emailVerify").html("发送邮箱验证");
+			msgTime = 10;
+			return;
+		}
+		msgTime--;
+		$(".emailVerify").html("剩余: "+msgTime+" 秒");
+		setTimeout("msgTimeOut()", 1000);
+	}
+</script>
+</body>
+</html>

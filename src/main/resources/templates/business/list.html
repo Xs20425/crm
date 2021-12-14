@@ -1,0 +1,231 @@
+<!doctype html>
+<html class="no-js">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Amaze UI Admin table Examples</title>
+<meta name="description" content="这是一个 table 页面">
+<meta name="keywords" content="table">
+<% include("/common/inc/_css.html"){} %>
+</head>
+<body>
+<!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+  以获得更好的体验！</p>
+<![endif]-->
+
+<% include("/common/inc/_header.html"){} %>
+
+<div class="am-cf admin-main">
+  <!-- sidebar start -->
+  <% include("/common/inc/_start.html"){} %>
+  <!-- sidebar end -->
+
+  <!-- content start -->
+  <div class="admin-content">
+    <div class="admin-content-body">
+      <div class="am-cf am-padding am-padding-bottom-0">
+        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">商机列表</strong></div>
+      	<span style="padding-left: 83%;"><a href="${ctxPath}/business/recycleBin/list"><button>回收站</button></a></span>
+      </div>
+      <hr>
+      <div class="am-g">
+        <div class="am-u-sm-12 am-u-md-6">
+          <div class="am-btn-toolbar">
+            <div class="am-btn-group am-btn-group-xs">
+	            <a onclick="deleteCustomer()" class="am-btn am-btn-default" type="button" style="background-color:#029be2;color:white; font-size: 16px">批量删除</a>
+            </div>
+            <div class="am-btn-group am-btn-group-xs">
+	            <a href="${ctxPath}/business/save" class="am-btn am-btn-default" type="button" style="background-color:#029be2;color:white; font-size: 16px">添加商机</a>
+	        </div>
+	        <div class="am-btn-group am-btn-group-xs" data-am-dropdown>
+	            <button class="am-btn am-btn-primary am-dropdown-toggle" data-am-dropdown-toggle type="button" style="background-color:#029be2;color:white; font-size: 16px">商机工具
+					<span class="am-icon-caret-down"></span></button>
+					<ul class="am-dropdown-content">
+					    <li><a href="${ctxPath}/business/import">导入数据</a></li>
+					    <li><a href="${ctxPath}/business/export">导出数据</a></li>
+					    <li><a href="${ctxPath}/business/boost/list">推进历史</a></li>
+					 </ul>
+	        </div>    
+	        <div class="am-btn-group am-btn-group-xs" data-am-dropdown>
+	            <button class="am-btn am-btn-primary am-dropdown-toggle" data-am-dropdown-toggle type="button" style="background-color:#029be2;color:white; font-size: 16px">亲情关怀
+					<span class="am-icon-caret-down"></span></button>
+					<ul class="am-dropdown-content">
+					    <li><a href="${ctxPath}/business/email">发送邮件</a></li>
+					 </ul>
+	        </div>    
+          </div>
+        </div>
+        <div class="am-u-sm-12 am-u-md-3">
+          <div class="am-form-group">
+            <select data-am-selected="{btnSize: 'sm'}" id="CriteriaType">
+              <option ${CriteriaType == '-1'? "selected":""} value="-1">所有字段</option>
+              <option ${CriteriaType == 'customer_name'? "selected":""} value="customer_name">客户</option>
+              <option ${CriteriaType == 'business_name'? "selected":""} value="business_name">商机名</option>
+              <option ${CriteriaType == 'source_name'? "selected":""} value="source_name">商机来源</option>
+              <option ${CriteriaType == 'charge_user_name'? "selected":""} value="charge_user_name">负责人</option>
+              <option ${CriteriaType == 'create_user_name'? "selected":""} value="create_user_name">创建人</option>
+            </select>
+          </div>
+        </div>
+        <div class="am-u-sm-12 am-u-md-3">
+          <div class="am-input-group am-input-group-sm">
+            <input type="text" class="am-form-field" id="content" value="${content!}">
+          <span class="am-input-group-btn">
+            <button class="am-btn am-btn-default" type="button" onclick="searchData()">搜索</button>
+          </span>
+          <span class="am-input-group-btn">
+            <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" type="button" onclick="resetData()">重置</button>
+          </span>
+          </div>
+        </div>
+        	
+      </div>
+
+      <div class="am-g">
+        <div class="am-u-sm-12">
+          <form class="am-form">
+            <table class="am-table am-table-striped am-table-hover table-main">
+              <thead>
+              <tr>
+                <th class="table-check"><input type="checkbox" /></th>
+                <th class="table-id">序号</th>
+                <th class="table-title">客户</th>
+                <th class="table-title">商机名</th>
+                <th class="table-title">商机来源</th>
+                <th class="table-date am-hide-sm-only">下次联系时间</th>
+                <th class="table-type">负责人</th>
+                <th class="table-type">创建人</th>
+                <th class="table-date am-hide-sm-only">创建时间</th>
+                <th class="table-date am-hide-sm-only">更新时间</th>
+                <th class="table-set">操作</th>
+              </tr>
+              </thead>
+              <tbody>
+              <% for(var item in list.list!) {%>
+              <tr>
+                <td class="table-check"><input type="checkbox" name="customerId" value="${item.id}" /></td>
+                <td class="table-id">${itemLP.index}</td>
+                <td class="table-title">${item.customer_name}</td>
+                <td class="table-title">${item.business_name}</td>
+                <td class="table-title">${item.source_name}</td>
+              	<td class="table-title">${item.next_contact_time,'yyyy-MM-dd'}</td>
+                <th class="table-title">${item.charge_user_name!}</th>
+                <td class="table-title">${item.create_user_name!}</td>
+                <td class="table-title">${item.create_time,'yyyy-MM-dd'}</td>
+                <td class="table-title">${item.update_time,'yyyy-MM-dd'}</td>
+                <td class="table-title">
+                	<div class="am-btn-toolbar">
+                        <div class="am-btn-group am-btn-group-xs">
+                            <a href="${ctxPath}/business/${item.id}" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 查看</a>
+                            <a onclick="showLayer0('${item.id}')" type="button" class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-pencil-square-o"></span> 推进</a>
+                        	<a href="${ctxPath}/business/update/${item.id}" class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</a>
+                        </div>
+                    </div>
+                </td>
+              </tr>
+              <%}%>         
+              </tbody>
+            </table>
+            <div class="am-cf">  
+            <span>共  ${list.totalCount!} 条数据</span>&nbsp;&nbsp;
+            <span>当前第 ${list.pageNum!} 页</span>&nbsp;&nbsp;
+            <span>共  ${list.totalPage!} 页  </span>
+            <div class="am-fr">
+                <% 
+	             var curUrl = ctxPath + "/business/list";
+	             include("/common/inc/_page.html",{pageUrl:curUrl}){}              
+		        %>
+            </div>
+            </div>
+            <hr />
+          </form>
+        </div>
+
+      </div>
+    </div>
+
+    <footer class="admin-content-footer">
+      <hr>
+      <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
+    </footer>
+
+  </div>
+  <!-- content end -->
+</div>
+
+<!-- 删除提示 -->
+<div class="am-modal am-modal-confirm" tabindex="-1" id="my-confirm">
+  <div class="am-modal-dialog">
+    <div class="am-modal-hd">删除提示</div>
+    <div class="am-modal-bd">确定要删除这条记录吗？</div>
+    <div class="am-modal-footer">
+      <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+      <span class="am-modal-btn" data-am-modal-confirm>确定</span>
+    </div>
+  </div>
+</div>
+
+<a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+<footer>
+  <hr>
+  <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
+</footer>
+<% include("/common/inc/_js.html"){} %>
+<script src="${ctxPath}/assets/layer/layer.js"></script>
+<script type="text/javascript">
+	function deleteCustomer() {
+		var ids = $("input[name='customerId']:checked");//获取复选框的值
+		var idsArr = new Array();//创建数组
+		var idsStr = "";
+		$.each(ids, function(index, item) {
+			idsArr.push(item.value);//给数组添加值
+			idsStr += item.value + ",";//把数组转化为字符串
+		})
+
+		$('#my-confirm').modal({
+			relatedTarget : this,
+			onConfirm : function(options) {
+				$.ajax({
+					url : '${ctxPath }/business/delete',
+					data : idsStr,//把前台数据传到后台
+					type : 'DELETE',
+					success : function() {
+						window.location.reload(); //刷新页面
+					}
+				})
+			}
+		});
+	}
+	
+	function showLayer0(id){
+		layer.open({  
+			type: 2,
+			title: '推进信息',
+			area: ['800px', '450px'],
+			maxmin: true,
+			shadeClose: true, //点击遮罩关闭层
+			content: '${ctxPath}/business/boost/update/'+id
+		});
+	};
+	function showLayer1(){
+		layer.open({  
+			type: 2,
+			title: '推进信息',
+			area: ['800px', '450px'],
+			maxmin: true,
+			shadeClose: true, //点击遮罩关闭层
+			content: '${ctxPath}/business/layer/'
+		});
+	}; 
+	
+	function searchData(){
+		window.location.href="${ctxPath}/business/list?CriteriaType="+$("#CriteriaType").val()+"&content="+$("#content").val();
+	}
+	
+	function resetData() {
+		window.location.href="${ctxPath}/business/list";
+	}
+</script>
+</body>
+</html>
