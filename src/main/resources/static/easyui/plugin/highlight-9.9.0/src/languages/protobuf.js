@@ -19,7 +19,7 @@ function(hljs) {
       hljs.C_LINE_COMMENT_MODE,
       {
         className: 'class',
-        beginKeywords: 'message enum service', end: /\{/,
+        beginKeywords: 'message enum com.zhidisoft.service', end: /\{/,
         illegal: /\n/,
         contains: [
           hljs.inherit(hljs.TITLE_MODE, {

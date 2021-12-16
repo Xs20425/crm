@@ -5,7 +5,6 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
     <base href="<%=basePath%>">
@@ -44,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </style>
 <body>
 <div id="info">
-  <img src="../../static/images/nothispage.png"/>
+  <img src="../static/images/nothispage.png"/>
   <h1>您好像没有权限访问链接呢，<a href="javascript:void(0)" onclick="return hisback()">请回吧</a></h1>
   </div>
   <script type="text/javascript">

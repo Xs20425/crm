@@ -1,22 +1,31 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-<base href="<%=basePath%>">
-
 <title>首页</title>
-
 <meta charset="utf-8">
 <title>京唐CRM系统</title>
-<%@include file="script.html" %>
-  
+	<link href="../static/easyui/themes/insdep/easyui.css" rel="stylesheet" type="text/css">
+	<link href="../static/easyui/themes/insdep/easyui_animation.css" rel="stylesheet" type="text/css">
+	<link href="../static/easyui/themes/insdep/easyui_plus.css" rel="stylesheet" type="text/css">
+	<link href="../static/easyui/themes/insdep/insdep_theme_default.css" rel="stylesheet" type="text/css">
+	<link href="../static/easyui/themes/insdep/icon.css" rel="stylesheet" type="text/css">
+	<link href="../static/easyui/themes/color.css" rel="stylesheet" type="text/css">
+
+	<link href="../static/ztree/zTreeStyle/zTreeStyle.css" rel="stylesheet" type="text/css" >
+	<link href="../static/css/common.css" rel="stylesheet" type="text/css" >
+
+	<script type="text/javascript" src="../static/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="../static/easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="../static/easyui/themes/insdep/jquery.insdep-extend.min.js"></script>
+	<script type="text/javascript" src="../static/ztree/jquery.ztree.all.min.js"></script>
+	<script type="text/javascript" src="../static/easyui/easyui-lang-zh_CN.js"></script>
+	<script type="text/javascript" src="../static/kindeditor/kindeditor-all-min.js"></script>
 <style type="text/css">
     .layout-panel-west {
         border-right: 1px solid #c5c5c5;
     }
 </style>
 </head>
-
 <body>
 <!-- <a href="debug.html">debug</a>-->
 	<div id="master-layout">
@@ -47,14 +56,14 @@
 						<div>清除消息提示</div>
 					</div>
 					<a href="#" class="easyui-menubutton theme-navigate-user-button"
-						data-options="menu:'.theme-navigate-user-panel'">${sessionScope.user.username }</a>
+						data-options="menu:'.theme-navigate-user-panel'" th:text="${session.user.username}"></a>
 
 					<div class="theme-navigate-user-panel">
 						<dl>
 							<dd>
-								<img src="static/easyui/themes/insdep/images/portrait86x86.png" width="86" height="86"> 
-								<b class="badge-prompt">${sessionScope.user.username }</b> 
-								<span>${sessionScope.user.email}</span>
+								<img src="../static/easyui/themes/insdep/images/1.png" width="86" height="86" alt="">
+								<b class="badge-prompt" th:text="${session.user.username}"></b>
+								<span th:text="${session.user.email}" ></span>
 
 								<p>
 									安全等级：<i class="text-success">高</i>
@@ -81,27 +90,28 @@
 			<div id="tab1" title="个人中心">
 				<div class="theme-user-info-panel">
 					<div class="left">
-						<img src="static/easyui/themes/insdep/images/portrait86x86.png" width="86" height="86">
+						<img src="../static/easyui/themes/insdep/images/1.png" width="86" height="86" alt="">
 					</div>
 					<div class="right">
 						<ul>
 							<li class="text-success">￥6,200.00<span>完成合同金额</span></li>
 							<li class="text-info">33<span>月度客户数</span></li>
 							<li class="text-warning">9820<span>月度任务额</span></li>
-							<li>125<span>月度线索数</span></li>
+							<li >125<span>月度线索数</span></li>
 						</ul>
 					</div>
 					<div class="center">
 						<h1>
-							${sessionScope.user.username }<span class="badge color-success">已认证</span>
+							[[${session.user.username}]]
+							<span class="badge color-success">  已认证</span>
 						</h1>
 
 						<h2>
 							角色名
 						</h2>
 						<ul>
-							<li><i class="iconfont">&#xe61c;</i> ${sessionScope.user.email}</li>
-							<li><i class="iconfont">&#xe65d;</i> ${sessionScope.user.phone}</li>
+							<li th:text="${session.user.email}"><i class="iconfont">&#xe61c;</i></li>
+							<li th:text="${session.user.phone}"><i class="iconfont">&#xe65d;</i></li>
 						</ul>
 					</div>
 				</div>
@@ -149,7 +159,7 @@
 		
 		$(function() {
 			//当前页面加载完毕之后，发送一个ajax请求，获取当前用户的功能权限
-			$.get("system/index_menu.do", function(data) {
+			$.get("index_menu.do", function(data) {
 				if (data && data.success) {
 					//初始化权限菜单树
 					$.fn.zTree.init($("#menu"), setting, data.data);

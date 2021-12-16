@@ -90,7 +90,7 @@ function(hljs) {
               'x[\\dA-Fa-f]{2}|' +    // two hex digit ascii char code
               'U[\\dA-Fa-f]{8}' +      // eight hex digit unicode codepoint
               ')|' +
-              '&[a-zA-Z\\d]{2,};';      // named character entity
+              '&[a-zA-Z\\d]{2,};';      // named character com.zhidisoft.entity
 
   /**
    * D integer number literals

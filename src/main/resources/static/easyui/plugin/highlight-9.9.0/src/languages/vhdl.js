@@ -24,7 +24,7 @@ function(hljs) {
       keyword:
         'abs access after alias all and architecture array assert assume assume_guarantee attribute ' +
         'begin block body buffer bus case component configuration constant context cover disconnect ' +
-        'downto default else elsif end entity exit fairness file for force function generate ' +
+        'downto default else elsif end com.zhidisoft.entity exit fairness file for force function generate ' +
         'generic group guarded if impure in inertial inout is label library linkage literal ' +
         'loop map mod nand new next nor not null of on open or others out package port ' +
         'postponed procedure process property protected pure range record register reject ' +

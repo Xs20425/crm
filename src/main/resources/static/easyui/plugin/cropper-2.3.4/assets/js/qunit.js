@@ -3083,7 +3083,7 @@ QUnit.testStart( function( details ) {
 
 function stripHtml( string ) {
 
-	// Strip tags, html entity and whitespaces
+	// Strip tags, html com.zhidisoft.entity and whitespaces
 	return string.replace( /<\/?[^>]+(>|$)/g, "" ).replace( /\&quot;/g, "" ).replace( /\s+/g, "" );
 }
 

@@ -10,7 +10,7 @@ function(hljs) {
   return {
     keywords: {
       keyword:
-        'namespace const typedef struct enum service exception void oneway set list map required optional',
+        'namespace const typedef struct enum com.zhidisoft.service exception void oneway set list map required optional',
       built_in:
         BUILT_IN_TYPES,
       literal:
@@ -23,7 +23,7 @@ function(hljs) {
       hljs.C_BLOCK_COMMENT_MODE,
       {
         className: 'class',
-        beginKeywords: 'struct enum service exception', end: /\{/,
+        beginKeywords: 'struct enum com.zhidisoft.service exception', end: /\{/,
         illegal: /\n/,
         contains: [
           hljs.inherit(hljs.TITLE_MODE, {

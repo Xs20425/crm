@@ -72,7 +72,7 @@ function(hljs) {
       hljs.QUOTE_STRING_MODE,
       {
         className: 'meta',
-        begin: '(ocf|systemd|service|lsb):[\\w_:-]+',
+        begin: '(ocf|systemd|com.zhidisoft.service|lsb):[\\w_:-]+',
         relevance: 0
       },
       {

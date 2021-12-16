@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="utf-8">
   <title>CRM登录</title>
-  <script type="text/javascript" src="../../static/jquery/jquery.min.js"></script>
-  <link rel="stylesheet" href="../../static/css/login.css">
+<!--  <script type="text/javascript" th:src="@{/jquery/jquery.min.js}"></script>-->
+  <script type="text/javascript" src="../static/jquery/jquery.min.js"></script>
+  <link rel="stylesheet" href="../static/css/login.css">
 </head>
 
 <body>
@@ -12,7 +13,7 @@
     <div class="login">
       <h1>登录CRM系统</h1>
       <span id="info"></span>
-      <form id="loginForm" method="post" action="index.html">
+      <form id="loginForm" method="post" action="/userLogin.do">
         <p><input type="text" name="username" value="" placeholder="用户名"></p>
         <p><input type="password" name="password" value="" placeholder="密码"></p>
         <p class="remember_me">
@@ -51,15 +52,16 @@
   			}
 
   			//发送ajax请求给服务器
-  			$.post("system/userLogin.do",
+  			$.post("userLogin.do",
   			{
   				"username" : username,
-  				"password" : password 
+  				"password" : password
   			},
   			function(data){
-  				alert(data);
+  				// alert(data);
   				if(data && data.success){
-  					window.location.href="system/index.do";
+
+  					window.location.href="index.do";
   					return;
   				}
   				if(data && !data.success){

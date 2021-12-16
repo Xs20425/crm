@@ -32,7 +32,7 @@ struct NestedListsI32x3
 {
   1: list<list<list<i32>>> integerlist
 }
-service ThriftTest
+com.zhidisoft.service ThriftTest
 {
   void        testVoid(),
   string      testString(1: string thing),

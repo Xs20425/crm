@@ -17,7 +17,7 @@ message Customer {
   }
 }
 
-service CustomerSearch {
+com.zhidisoft.service CustomerSearch {
   rpc FirstMatch(CustomerRequest) returns (CustomerResponse);
   rpc AllMatches(CustomerRequest) returns (CustomerResponse);
 }
